@@ -1,102 +1,126 @@
-# ATS Resume Scorer
+# 📄 ATS Resume Scorer
 
-A web app that scores how well a resume matches a job description and returns actionable feedback. Built with FastAPI + Streamlit, using spaCy and Sentence Transformers for NLP and the Groq API for LLM-generated suggestions.
+An AI-powered Resume Analysis Tool that evaluates resumes against job descriptions using Natural Language Processing (NLP) and Large Language Models (LLMs). The application helps job seekers optimize their resumes by identifying missing skills, improving ATS compatibility, and providing actionable suggestions.
 
-## What it does
+---
 
-1. Upload a resume (PDF / DOC / DOCX) and paste a job description.
-2. The backend parses the resume, extracts skills and experience, and compares them to the JD using semantic similarity.
-3. You get an ATS score, a breakdown by category (formatting, keywords, content, skill validation, ATS compatibility), and LLM-written suggestions for what to improve.
-4. Past analyses are saved to your account so you can revisit them.
+## 🚀 Features
 
-## Tech stack
+- 📂 Upload resumes in PDF format
+- 📝 Paste or upload a Job Description
+- 🎯 ATS compatibility score
+- 🔍 Keyword and skill matching
+- 🤖 AI-powered resume improvement suggestions
+- 📊 Resume-to-job description similarity analysis
+- 📑 Detailed feedback report
+- ⚡ Interactive and user-friendly interface
 
-- **Frontend:** Streamlit
-- **Backend:** FastAPI (Python)
-- **NLP:** spaCy (`en_core_web_md`), Sentence Transformers (`all-MiniLM-L6-v2`)
-- **LLM:** Groq API (Llama 3)
-- **Auth + Database:** Supabase (email/password and Google OAuth)
-- **PDF report export:** WeasyPrint + Jinja2
+---
 
-## Project structure
+## 🛠️ Tech Stack
+
+### Backend
+- Python
+- FastAPI
+- Sentence Transformers
+- spaCy
+- Scikit-learn
+
+### Frontend
+- Streamlit
+
+### AI & NLP
+- Llama 3 (Groq API)
+- Sentence Embeddings
+- Semantic Similarity
+- NLP-based Skill Extraction
+
+### Database
+- Supabase
+
+---
+
+## 📁 Project Structure
 
 ```
-ATS_SCORER/
-├── backend/              FastAPI app, NLP services, API routes
-├── frontend/             Streamlit app, views, components
-├── jupyter notebooks/    Research and dataset prep (not used at runtime)
-├── ml model/             Exported ML artifacts
-├── requirements.txt      Combined backend + frontend dependencies
-└── .env.example          Template for environment variables
+ATS-Resume-Scorer/
+│
+├── backend/
+├── frontend/
+├── notebooks/
+├── requirements.txt
+└── README.md
 ```
 
-## Setup
+---
 
-### 1. Clone and create a virtual environment
+## ⚙️ Installation
+
+### Clone the repository
 
 ```bash
-git clone <repo-url>
-cd ATS_SCORER
-python -m venv venv
-source venv/bin/activate         # Windows: venv\Scripts\activate
+git clone https://github.com/thePankaj021/ATS-Resume-Scorer.git
 ```
 
-### 2. Install dependencies
+### Navigate to the project
+
+```bash
+cd ATS-Resume-Scorer
+```
+
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
-python -m spacy download en_core_web_md
 ```
 
-WeasyPrint needs system libraries on Linux:
+### Start the backend
 
 ```bash
-# Fedora
-sudo dnf install -y cairo pango gdk-pixbuf2 libffi
-
-# Debian / Ubuntu
-sudo apt install -y libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libffi-dev
+uvicorn app:app --reload
 ```
 
-### 3. Configure environment variables
-
-Copy the template and fill in your keys:
+### Start the frontend
 
 ```bash
-cp .env.example .env
+streamlit run app.py
 ```
 
-You need:
+---
 
-- A **Supabase** project — grab `SUPABASE_URL`, `SUPABASE_KEY` (service role), and `SUPABASE_ANON_KEY` from Project Settings → API.
-- A **Groq** API key from [console.groq.com](https://console.groq.com).
-- (Optional) Google OAuth set up in the Supabase dashboard if you want Google sign-in.
+## 📸 Screenshots
 
-The Streamlit frontend also reads Supabase config from `frontend/.streamlit/secrets.toml`. Copy `secrets.toml.example` to `secrets.toml` and fill it in.
+> Add screenshots of:
+- Home Page
+- Resume Upload
+- ATS Score
+- AI Suggestions
+- Final Report
 
-### 4. Run the backend
+---
 
-From the project root:
+## 📈 Future Improvements
 
-```bash
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-```
+- Multi-language resume support
+- AI interview question generation
+- Resume version comparison
+- Cover letter generation
+- Resume ranking for recruiters
+- Cloud deployment
 
-The API is now at `http://localhost:8000`.
+---
 
-### 5. Run the frontend
+## 👨‍💻 Author
 
-In a new terminal (with the venv activated):
+**Pankaj Meghwal**
 
-```bash
-streamlit run frontend/streamlit_app.py
-```
+- LinkedIn: https://linkedin.com/in/pankaj-meghwal
+- GitHub: https://github.com/thePankaj021
 
-The app opens at `http://localhost:8501`.
+---
 
-## Notes for students
+## ⭐ Support
 
-- **Never commit `.env` or `secrets.toml`** — they hold API keys. Both are in `.gitignore`; check before you push.
-- The first run downloads the Sentence Transformer model (~80 MB). It's cached afterwards.
-- If you don't have a Groq key yet, the scoring still works — only the LLM suggestions section will be empty.
-- `jupyter notebooks/` and `ml model/` are for experimentation and aren't required to run the app.
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+Feedback and contributions are always welcome.
